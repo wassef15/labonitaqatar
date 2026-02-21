@@ -2,6 +2,7 @@
 
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function JewelryPage({
   params
@@ -13,16 +14,26 @@ export default function JewelryPage({
   return (
     <>
       {/* HERO */}
-      <section className="relative h-[70vh] overflow-hidden bg-[url('/jewelry1.jpg')] bg-cover bg-center">
+      <section className="relative h-[75vh] md:h-[85vh] overflow-hidden">
+
+        <Image
+          src="/jewelry1.jpg"
+          alt="Luxury Jewelry Collection"
+          fill
+          priority
+          className="object-cover"
+          sizes="100vw"
+        />
+
         <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent" />
 
-        <div className="relative z-10 h-full flex items-center max-w-7xl mx-auto px-8">
+        <div className="relative z-10 h-full flex items-center max-w-7xl mx-auto px-6 md:px-8">
           <div className="max-w-xl text-white space-y-6">
             <p className="uppercase tracking-[12px] text-xs text-[var(--color-gold)]">
               {locale === "ar" ? "مجموعة حصرية" : "Exclusive Boutique"}
             </p>
 
-            <h1 className="text-4xl md:text-6xl font-light leading-tight">
+            <h1 className="text-3xl md:text-6xl font-light leading-tight">
               {locale === "ar"
                 ? "المجوهرات والهدايا الخاصة"
                 : "Jewelry & Special Gifts"}
@@ -34,8 +45,8 @@ export default function JewelryPage({
       </section>
 
       {/* INTRO */}
-      <section className="py-16 max-w-3xl mx-auto px-8 text-center space-y-6">
-        <h2 className="text-2xl md:text-3xl font-light text-[var(--color-burgundy)]">
+      <section className="py-16 md:py-24 max-w-3xl mx-auto px-6 md:px-8 text-center space-y-6">
+        <h2 className="text-xl md:text-3xl font-light text-[var(--color-burgundy)]">
           {locale === "ar"
             ? "قطع مختارة بعناية لتجسيد الفخامة"
             : "Curated Pieces Designed to Embody Luxury"}
@@ -49,32 +60,34 @@ export default function JewelryPage({
       </section>
 
       {/* FINE JEWELRY */}
-      <section className="py-20 max-w-7xl mx-auto px-8 space-y-12">
+      <section className="py-16 md:py-20 max-w-7xl mx-auto px-6 md:px-8 space-y-12">
+
         <div className="text-center space-y-3">
-          <h3 className="text-3xl font-light text-[var(--color-charcoal)]">
+          <h3 className="text-2xl md:text-3xl font-light text-[var(--color-charcoal)]">
             {locale === "ar" ? "المجوهرات الراقية" : "Fine Jewelry"}
           </h3>
           <div className="w-14 h-[1px] bg-[var(--color-gold)] mx-auto" />
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+
           {[
             { title: locale === "ar" ? "عقود ذهبية" : "Gold Necklaces", image: "/jewelry-necklace.png" },
             { title: locale === "ar" ? "أقراط ماسية" : "Diamond Earrings", image: "/jewelry-earrings.png" },
             { title: locale === "ar" ? "أساور فاخرة" : "Luxury Bracelets", image: "/jewelry-bracelet.png" }
-
-            
-            
           ].map((item, index) => (
+
             <div
               key={index}
-              className="bg-white border border-[var(--color-beige)] overflow-hidden shadow-md hover:shadow-xl transition duration-500"
+              className="bg-white border border-[var(--color-beige)] shadow-md hover:shadow-xl transition duration-500"
             >
-              <div className="h-[320px] overflow-hidden">
-                <img
+              <div className="relative w-full aspect-square overflow-hidden">
+                <Image
                   src={item.image}
                   alt={item.title}
-                  className="w-full h-full object-cover"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
 
@@ -84,88 +97,84 @@ export default function JewelryPage({
                 </h4>
               </div>
             </div>
+
           ))}
+
         </div>
       </section>
 
-     {/* BAGS & DRESSES — PORTRAIT OPTIMIZED */}
-<section className="py-24 bg-[var(--color-cream)] border-t border-[var(--color-beige)]">
-  <div className="max-w-7xl mx-auto px-8 space-y-24">
+      {/* BAGS & DRESSES */}
+      <section className="py-20 md:py-24 bg-[var(--color-cream)] border-t border-[var(--color-beige)]">
 
-    {/* Section Title */}
-    <div className="text-center space-y-3">
-      <h3 className="text-3xl font-light text-[var(--color-charcoal)]">
-        {locale === "ar" ? "الحقائب والفساتين" : "Bags & Dresses"}
-      </h3>
-      <div className="w-14 h-[1px] bg-[var(--color-gold)] mx-auto" />
-    </div>
+        <div className="max-w-7xl mx-auto px-6 md:px-8 space-y-20 md:space-y-24">
 
-    {/* BAGS */}
-    <div className="grid md:grid-cols-2 gap-16 items-center">
+          <div className="text-center space-y-3">
+            <h3 className="text-2xl md:text-3xl font-light text-[var(--color-charcoal)]">
+              {locale === "ar" ? "الحقائب والفساتين" : "Bags & Dresses"}
+            </h3>
+            <div className="w-14 h-[1px] bg-[var(--color-gold)] mx-auto" />
+          </div>
 
-      {/* Portrait Image */}
-      <div className="flex justify-center">
-        <div className="w-[320px] md:w-[380px] overflow-hidden shadow-xl border border-[var(--color-beige)] bg-white">
-          <img
-            src="/gift-bag.png"
-            alt="Luxury Bags"
-            className="w-full h-auto object-contain"
-          />
+          {/* BAGS */}
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+
+            <div className="relative w-full aspect-[4/5] overflow-hidden shadow-xl border border-[var(--color-beige)] bg-white">
+              <Image
+                src="/gift-bag.png"
+                alt="Luxury Bags"
+                fill
+                className="object-contain p-6"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
+
+            <div className="space-y-6 max-w-lg">
+              <div className="w-12 h-[1px] bg-[var(--color-gold)]" />
+              <h4 className="text-2xl md:text-3xl font-light text-[var(--color-burgundy)]">
+                {locale === "ar" ? "حقائب فاخرة" : "Luxury Bags"}
+              </h4>
+              <p className="opacity-70 leading-relaxed text-base md:text-lg">
+                {locale === "ar"
+                  ? "تصاميم راقية تضيف لمسة من الأناقة الرفيعة."
+                  : "Elegant statement pieces crafted to elevate every refined look."}
+              </p>
+            </div>
+
+          </div>
+
+          {/* DRESSES */}
+          <div className="grid md:grid-cols-2 gap-12 md:gap-16 items-center md:grid-flow-dense">
+
+            <div className="relative w-full aspect-[4/5] overflow-hidden shadow-xl border border-[var(--color-beige)] bg-white md:col-start-2">
+              <Image
+                src="/gift-dress.png"
+                alt="Elegant Dresses"
+                fill
+                className="object-contain p-6"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
+            </div>
+
+            <div className="space-y-6 max-w-lg">
+              <div className="w-12 h-[1px] bg-[var(--color-gold)]" />
+              <h4 className="text-2xl md:text-3xl font-light text-[var(--color-burgundy)]">
+                {locale === "ar" ? "فساتين راقية" : "Elegant Dresses"}
+              </h4>
+              <p className="opacity-70 leading-relaxed text-base md:text-lg">
+                {locale === "ar"
+                  ? "قطع مختارة بعناية لتمنحك حضورًا استثنائيًا."
+                  : "Curated couture designed to create unforgettable elegance."}
+              </p>
+            </div>
+
+          </div>
+
         </div>
-      </div>
-
-      {/* Text */}
-      <div className="space-y-6 max-w-lg">
-        <div className="w-12 h-[1px] bg-[var(--color-gold)]" />
-
-        <h4 className="text-2xl md:text-3xl font-light text-[var(--color-burgundy)]">
-          {locale === "ar" ? "حقائب فاخرة" : "Luxury Bags"}
-        </h4>
-
-        <p className="opacity-70 leading-relaxed text-lg">
-          {locale === "ar"
-            ? "تصاميم راقية تضيف لمسة من الأناقة الرفيعة."
-            : "Elegant statement pieces crafted to elevate every refined look."}
-        </p>
-      </div>
-    </div>
-
-    {/* DRESSES */}
-    <div className="grid md:grid-cols-2 gap-16 items-center md:grid-flow-dense">
-
-      {/* Portrait Image */}
-      <div className="flex justify-center md:col-start-2">
-        <div className="w-[320px] md:w-[380px] overflow-hidden shadow-xl border border-[var(--color-beige)] bg-white">
-          <img
-            src="/gift-dress.png"
-            alt="Elegant Dresses"
-            className="w-full h-auto object-contain"
-          />
-        </div>
-      </div>
-
-      {/* Text */}
-      <div className="space-y-6 max-w-lg">
-        <div className="w-12 h-[1px] bg-[var(--color-gold)]" />
-
-        <h4 className="text-2xl md:text-3xl font-light text-[var(--color-burgundy)]">
-          {locale === "ar" ? "فساتين راقية" : "Elegant Dresses"}
-        </h4>
-
-        <p className="opacity-70 leading-relaxed text-lg">
-          {locale === "ar"
-            ? "قطع مختارة بعناية لتمنحك حضورًا استثنائيًا."
-            : "Curated couture designed to create unforgettable elegance."}
-        </p>
-      </div>
-    </div>
-
-  </div>
-</section>
+      </section>
 
       {/* CTA */}
-      <section className="py-20 text-center space-y-5">
-        <h2 className="text-2xl font-light text-[var(--color-burgundy)]">
+      <section className="py-16 md:py-20 text-center space-y-5 px-6">
+        <h2 className="text-xl md:text-2xl font-light text-[var(--color-burgundy)]">
           {locale === "ar"
             ? "احجز تجربة تسوق خاصة"
             : "Book a Private Shopping Experience"}
@@ -175,7 +184,7 @@ export default function JewelryPage({
 
         <Link
           href={`/${locale}/book`}
-          className="inline-block mt-4 px-10 py-3 border border-[var(--color-gold)] text-[var(--color-gold)] hover:bg-[var(--color-gold)] hover:text-black transition uppercase tracking-[2px] text-sm"
+          className="inline-block mt-4 px-8 md:px-10 py-3 border border-[var(--color-gold)] text-[var(--color-gold)] hover:bg-[var(--color-gold)] hover:text-black transition uppercase tracking-[2px] text-sm"
         >
           {locale === "ar" ? "احجز زيارة" : "Book Private Visit"}
         </Link>
