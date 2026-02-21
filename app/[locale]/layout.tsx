@@ -9,8 +9,6 @@ import PageTransition from "@/components/PageTransition";
 import { luxuryFont } from "@/lib/fonts";
 import WorkingHoursBar from "@/components/WorkingHoursBar";
 
-
-
 export default function LocaleLayout({
   children,
   params
@@ -31,22 +29,28 @@ export default function LocaleLayout({
         {/* Scroll Progress */}
         <ScrollProgress />
 
-        {/* Smooth Scroll */}
-        <SmoothScroll />
+        {/* Smooth Scroll → Desktop Only */}
+        <div className="hidden md:block">
+          <SmoothScroll />
+        </div>
 
-        {/* Cursor Glow */}
-        <CursorGlow />
+        {/* Cursor Glow → Desktop Only */}
+        <div className="hidden md:block">
+          <CursorGlow />
+        </div>
 
-
-
+        {/* Navbar */}
         <Navbar locale={locale} />
-<WorkingHoursBar locale={locale} />
-        {/* Single main container */}
-       <main className="pt-28 md:pt-32 overflow-hidden">
-  <PageTransition>
-    {children}
-  </PageTransition>
-</main>
+
+        {/* Working Hours Bar */}
+        <WorkingHoursBar locale={locale} />
+
+        {/* Main Content */}
+        <main className="pt-28 md:pt-32">
+          <PageTransition>
+            {children}
+          </PageTransition>
+        </main>
 
       </body>
     </html>
