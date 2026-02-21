@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import LanguageSwitcher from "./LanguageSwitcher";
 
 export default function Navbar({ locale }: { locale: string }) {
@@ -17,10 +17,14 @@ export default function Navbar({ locale }: { locale: string }) {
     { label: locale === "ar" ? "السباحة" : "Pool And Fitness", href: `/${locale}/pool` }
   ];
 
-  return (
-    <header className="fixed top-0 left-0 w-full z-50">
+  useEffect(() => {
+    document.body.style.overflow = isOpen ? "hidden" : "auto";
+  }, [isOpen]);
 
-      <div className="bg-white border-b border-[var(--color-beige)]">
+  return (
+    <>
+      {/* Navbar */}
+      <header className="fixed top-0 left-0 w-full bg-white z-[9999] border-b border-[var(--color-beige)]">
 
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
 
@@ -33,51 +37,71 @@ export default function Navbar({ locale }: { locale: string }) {
           </Link>
 
           {/* Desktop Nav */}
-          <nav className="hidden md:flex gap-8 items-center">
-            {navItems.map((item, index) => (
-              <Link key={index} href={item.href}>
-                {item.label}
-              </Link>
-            ))}
-            <LanguageSwitcher locale={locale} />
+          <nav className="hidden md:flex gap-10 items-center font-medium text-[var(--color-charcoal)]">
+            {navItems.map((item, index) => {
+              const active = pathname === item.href;
+
+              return (
+                <Link key={index} href={item.href} className="relative group">
+                  <span
+                    className={`transition-colors duration-300 ${
+                      active
+                        ? "text-[var(--color-gold)]"
+                        : "group-hover:text-[var(--color-gold)]"
+                    }`}
+                  >
+                    {item.label}
+                  </span>
+
+                  {/* Luxury Underline */}
+                  <span
+                    className={`absolute left-0 -bottom-1 h-[1px] bg-[var(--color-gold)] transition-all duration-300 ${
+                      active ? "w-full" : "w-0 group-hover:w-full"
+                    }`}
+                  />
+                </Link>
+              );
+            })}
           </nav>
 
-          {/* Mobile Hamburger */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden flex flex-col gap-1"
-          >
-            <span className="w-6 h-[2px] bg-black" />
-            <span className="w-6 h-[2px] bg-black" />
-            <span className="w-6 h-[2px] bg-black" />
-          </button>
-        </div>
+          {/* Right Side Controls */}
+          <div className="flex items-center gap-4">
 
-        {/* Mobile Dropdown */}
-        <div
-          className={`md:hidden transition-all duration-300 overflow-hidden ${
-            isOpen ? "max-h-[400px] py-6" : "max-h-0"
-          } bg-white`}
-        >
-          <div className="flex flex-col items-center gap-6">
-
-            {navItems.map((item, index) => (
-              <Link
-                key={index}
-                href={item.href}
-                onClick={() => setIsOpen(false)}
-                className="text-lg"
-              >
-                {item.label}
-              </Link>
-            ))}
-
+            {/* Language Switcher (Always Visible) */}
             <LanguageSwitcher locale={locale} />
 
-          </div>
-        </div>
+            {/* Hamburger */}
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="md:hidden flex flex-col gap-1"
+            >
+              <span className="w-6 h-[2px] bg-black" />
+              <span className="w-6 h-[2px] bg-black" />
+              <span className="w-6 h-[2px] bg-black" />
+            </button>
 
-      </div>
-    </header>
+          </div>
+
+        </div>
+      </header>
+
+      {/* Mobile Overlay */}
+      {isOpen && (
+        <div className="fixed inset-0 bg-white z-[9998] flex flex-col items-center justify-center gap-10 md:hidden">
+
+          {navItems.map((item, index) => (
+            <Link
+              key={index}
+              href={item.href}
+              onClick={() => setIsOpen(false)}
+              className="text-2xl font-light hover:text-[var(--color-gold)] transition duration-300"
+            >
+              {item.label}
+            </Link>
+          ))}
+
+        </div>
+      )}
+    </>
   );
 }
